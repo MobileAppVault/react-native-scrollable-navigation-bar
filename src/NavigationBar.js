@@ -3,6 +3,7 @@ import { Animated, View, Text, StatusBar, Platform } from 'react-native';
 import NavigationBarTitle from './NavigationBarTitle';
 import BackButton from './BackButton';
 import NavigationBarIcon from './NavigationBarIcon';
+import { isIphoneX, getStatusBarHeight } from './constants';
 
 class NavigationBar extends React.Component {
   renderIcons(icons, side) {
@@ -61,7 +62,7 @@ class NavigationBar extends React.Component {
           shadowOffset: { height: 8, width: 0 },
           shadowOpacity: withShadow
             ? animatedValue.interpolate({
-                inputRange: [offset || 0, offset ? offset + 20 : 20],
+                inputRange: [offset || 0, offset ? offset + (isIphoneX() ? getStatusBarHeight() : 20)  : (isIphoneX() ? getStatusBarHeight() : 20) ],
                 outputRange: [0, 0.15],
                 extrapolate: 'clamp'
               })
@@ -83,7 +84,7 @@ class NavigationBar extends React.Component {
         >
           <View
             style={{
-              paddingTop: Platform.OS === 'ios' ? 20 : StatusBar.currentHeight,
+              paddingTop: Platform.OS === 'ios' ? (isIphoneX() ? getStatusBarHeight() : 20) : StatusBar.currentHeight,
               flex: 1,
               flexDirection: 'row',
               alignItems: 'center',

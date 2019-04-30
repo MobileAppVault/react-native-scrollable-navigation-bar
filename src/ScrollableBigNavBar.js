@@ -4,7 +4,7 @@ import NavigationBar from './NavigationBar';
 import BigNavigationBar from './BigNavigationBar';
 import ImageNavigationBar from './ImageNavigationBar';
 
-import { NAVIGATION_BAR_HEIGHT } from './constants';
+import { NAVIGATION_BAR_HEIGHT, ViewportHeight, ViewportWidth } from './constants';
 
 class ScrollableBigNavBar extends React.Component {
   state = {
@@ -65,12 +65,22 @@ class ScrollableBigNavBar extends React.Component {
       ListHeaderComponent,
       NavigationBarComponent = NavigationBar,
       navigationBarHeight = NAVIGATION_BAR_HEIGHT,
-      withBigBorder
+      withBigBorder,
+      bigBackgroundColor,
+      bigSubTitleStyle,
+      subTitle
     } = this.props;
     const { reached } = this.state;
+
+    const headerHeight =  this.scroll.interpolate({
+      inputRange: [0, height],
+      outputRange: [height/2, height],
+      extrapolate: 'clamp',
+    });
     return (
       <View style={{ flex: 1 }}>
         <StatusBar {...statusBar} />
+        <View style={{position:'absolute', height: height*3, backgroundColor:backgroundColor, width: ViewportWidth}}></View>
         <NavigationBarComponent
           backgroundColor={
             image === undefined ? backgroundColor : 'transparent'
@@ -152,10 +162,12 @@ class ScrollableBigNavBar extends React.Component {
                 pointerEvents="none"
                 animatedValue={this.scroll}
                 height={height}
-                backgroundColor="transparent"
+                backgroundColor={bigBackgroundColor || "transparent"}
                 borderColor={withBigBorder ? borderColor : undefined}
                 bigTitleStyle={bigTitleStyle}
+                bigSubTitleStyle={bigSubTitleStyle}
                 title={!hideBigTitle && title}
+                subTitle={!hideBigTitle && subTitle}
                 increaseFontSize={increaseFontSize}
               />
               {ListHeaderComponent !== undefined && <ListHeaderComponent />}
@@ -179,10 +191,12 @@ class ScrollableBigNavBar extends React.Component {
               pointerEvents="none"
               animatedValue={this.scroll}
               height={height}
-              backgroundColor="transparent"
+              backgroundColor={bigBackgroundColor || "transparent"}
               borderColor={withBigBorder ? borderColor : undefined}
               bigTitleStyle={bigTitleStyle}
+              bigSubTitleStyle={bigSubTitleStyle}
               title={!hideBigTitle && title}
+              subTitle={!hideBigTitle && subTitle}
               increaseFontSize={increaseFontSize}
             />
             {ListHeaderComponent !== undefined && <ListHeaderComponent />}

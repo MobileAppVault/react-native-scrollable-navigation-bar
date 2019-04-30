@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Animated } from 'react-native';
 import BigNavigationBarTitle from './BigNavigationBarTitle';
+import BigNavigationBarSubTitle from './BigNavigationBarSubTitle';
 import NavigationBar from './NavigationBar';
 
 class BigNavigationBar extends React.Component {
@@ -12,14 +13,17 @@ class BigNavigationBar extends React.Component {
       borderColor,
       bigTitleStyle,
       title,
+      bigSubTitleStyle,
+      subTitle,
       increaseFontSize,
       pointerEvents
     } = this.props;
+
     return (
-      <View
+      <Animated.View
         pointerEvents={pointerEvents}
         style={{
-          height,
+          height: height,
           justifyContent: 'flex-end',
           padding: 15,
           backgroundColor,
@@ -34,7 +38,18 @@ class BigNavigationBar extends React.Component {
         >
           {title}
         </BigNavigationBarTitle>
-      </View>
+        {
+          subTitle && subTitle != ""
+        ? <BigNavigationBarSubTitle
+            animatedValue={animatedValue}
+            bigSubTitleStyle={bigSubTitleStyle}
+            increaseFontSize={increaseFontSize}
+          >
+            {subTitle}
+          </BigNavigationBarSubTitle>
+        : null
+        }
+      </Animated.View>
     );
   }
 }

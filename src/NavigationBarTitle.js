@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Animated, View, Text, StatusBar, Platform } from 'react-native';
+import { isIphoneX, getStatusBarHeight } from './constants';
 
 class NavigationBarTitle extends React.Component {
   render() {
@@ -9,7 +10,7 @@ class NavigationBarTitle extends React.Component {
         pointerEvents="box-none"
         style={{
           position: 'absolute',
-          top: Platform.OS === 'ios' ? 20 : StatusBar.currentHeight,
+          top: Platform.OS === 'ios' ? (isIphoneX() ? getStatusBarHeight() : 20)  : StatusBar.currentHeight,
           left: 0,
           right: 0,
           bottom: 0,
