@@ -1,5 +1,10 @@
 # react-native-scrollable-navigation-bar
-  Different Navigation-Bar animations for react native.<br>
+Different Navigation-Bar animations for react native.<br>
+
+**forked from zobeirhamid/react-native-scrollable-navigation-bar**
+
+*iPhoneX ready*
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/zobeirhamid/react-native-scrollable-navigation-bar/master/demo.gif" alt="Demo" /><br>
 </p>
